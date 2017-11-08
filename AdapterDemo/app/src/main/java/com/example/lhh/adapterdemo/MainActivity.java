@@ -4,15 +4,11 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
     private int[] list_item_id = new int[]{R.id.img_head, R.id.list_name, R.id.list_msg};
 
 
-    private List<Hero> mHeroLst = null;
+    private List<Hero> mLstHero = null;
     private Context mContext;
     private HeroAdapter mHeroAdapter = null;
-    private ListView list_hero;
+    private ListView mLstView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +104,15 @@ public class MainActivity extends AppCompatActivity {
 
         // [3]
         mContext = MainActivity.this;
-        list_hero = (ListView) findViewById(R.id.list_dota);
-        mHeroLst = new LinkedList<Hero>();
+        mLstView = (ListView) findViewById(R.id.list_dota);
+        mLstHero = new LinkedList<Hero>();
 
-        mHeroLst.add(new Hero(LstName, LstMsg, LstIcon));
-        mHeroAdapter = new HeroAdapter((LinkedList<Hero>) mHeroLst, mContext);
-        list_hero.setAdapter(mHeroAdapter);
+        for (int iIndex = 0; iIndex < LstName.size(); ++iIndex){
+            mLstHero.add(new Hero(LstName.get(iIndex), LstMsg.get(iIndex), LstIcon.get(iIndex)));
+        }
+
+        mHeroAdapter = new HeroAdapter((LinkedList<Hero>) mLstHero, mContext);
+        mLstView.setAdapter(mHeroAdapter);
         // [3]
 
     }
