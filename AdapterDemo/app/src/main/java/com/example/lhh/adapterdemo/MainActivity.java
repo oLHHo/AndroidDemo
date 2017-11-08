@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +21,27 @@ public class MainActivity extends AppCompatActivity {
                                             "火女", "复仇之魂", "水晶室女"};
     // "大酒神", "ZSMJ", "PIS", "Zhou", "YYF", "430", "820", "Burning", "Xiao8", "Nada"
 
+    private List<String> LstName = new ArrayList<>(Arrays.asList(
+            "暗影萨满", "撼地神牛", "众神之王",
+            "极寒幽魂", "风暴之灵", "恶魔巫师",
+            "火女", "复仇之魂", "水晶室女"));
+
+    private List<String> LstMsg = Arrays.asList(
+            "Don't worry, be happy. 别担心，开心点",
+            "Justice will be served! 公正终将得以伸张",
+            "I must feast on souls. 欢迎参加这场灵魂的盛宴",
+            "Fall like the leaves, in fall. 像秋天的叶子般凋零吧",
+            "The calm, before the storm. 暴风雨前的宁静",
+            "I live to serve all believers. 我为服务信徒而生",
+            "Time is short, mortal. 凡人，你的时间不多了",
+            "I hear the call of the wild. 我听到了大自然的呼唤",
+            "Future is ours. 未来是我们的");
+
+    private List<Integer> LstIcon= Arrays.asList(
+            R.mipmap.xy, R.mipmap.es, R.mipmap.zs,
+            R.mipmap.aa, R.mipmap.lm, R.mipmap.lion,
+            R.mipmap.lina, R.mipmap.vs, R.mipmap.cm);
+
     private String[] msgs = new String[]{
             "Don't worry, be happy. 别担心，开心点",
             "Justice will be served! 公正终将得以伸张",
@@ -30,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             "Time is short, mortal. 凡人，你的时间不多了",
             "I hear the call of the wild. 我听到了大自然的呼唤",
             "Future is ours. 未来是我们的"};
+
     private Integer[] imgs = new Integer[]{R.mipmap.xy, R.mipmap.es, R.mipmap.zs,
                                     R.mipmap.aa, R.mipmap.lm, R.mipmap.lion,
                                     R.mipmap.lina, R.mipmap.vs, R.mipmap.cm};
@@ -88,11 +111,7 @@ public class MainActivity extends AppCompatActivity {
         list_hero = (ListView) findViewById(R.id.list_dota);
         mHeroLst = new LinkedList<Hero>();
 
-        ArrayList LstIcon = new ArrayList();
-        LstIcon.add(imgs);
-
-        List<Integer> list= Arrays.asList(imgs);
-        mHeroLst.add(new Hero(names, msgs, list));
+        mHeroLst.add(new Hero(LstName, LstMsg, LstIcon));
         mHeroAdapter = new HeroAdapter((LinkedList<Hero>) mHeroLst, mContext);
         list_hero.setAdapter(mHeroAdapter);
         // [3]

@@ -57,15 +57,21 @@ public class Hero {
     public String getName(){
         return strName;
     }
-    public List<String> getLstName(){return mLstName;}
+    public List<String> getLstName(){
+        return mLstName;
+    }
 
     public String getSpeak(){
         return strSpeak;
     }
-    public List<String> getLstSpeak(){return mLstSpeak;}
+    public List<String> getLstSpeak(){
+        return mLstSpeak;
+    }
 
     public int getIcon(){
         return iIcon;
     }
-    public List<Integer> getLstIcon(){return mLstIcon;}
+    public List<Integer> getLstIcon(){
+        return mLstIcon;
+    }
 }

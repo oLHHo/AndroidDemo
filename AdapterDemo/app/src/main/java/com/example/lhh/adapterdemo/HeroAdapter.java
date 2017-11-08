@@ -1,5 +1,6 @@
 package com.example.lhh.adapterdemo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,16 +36,50 @@ public class HeroAdapter extends BaseAdapter {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        convertView = LayoutInflater.from(mcontext).inflate(R.layout.list_item, parent, false);
-        ImageView img_hero = (ImageView) convertView.findViewById(R.id.img_head);
-        TextView txt_name = (TextView) convertView.findViewById(R.id.list_name);
-        TextView txt_speak = (TextView) convertView.findViewById(R.id.list_msg);
+//    public View getView(int position, View convertView, ViewGroup parent){
+//        convertView = LayoutInflater.from(mcontext).inflate(R.layout.list_item, parent, false);
+//        ImageView img_hero = (ImageView) convertView.findViewById(R.id.img_head);
+//        TextView txt_name = (TextView) convertView.findViewById(R.id.list_name);
+//        TextView txt_speak = (TextView) convertView.findViewById(R.id.list_msg);
+//
+//        img_hero.setBackgroundResource(mHeroLst.get(position).getIcon());
+//        txt_name.setText(mHeroLst.get(position).getName());
+//        txt_speak.setText(mHeroLst.get(position).getSpeak());
+//
+//        return convertView;
+//    }
 
-        img_hero.setBackgroundResource(mHeroLst.get(position).getIcon());
-        txt_name.setText(mHeroLst.get(position).getName());
-        txt_speak.setText(mHeroLst.get(position).getSpeak());
+    /**BaseAdapter优化
+     * 1.复用convertView
+     * 2.ViewHolder重用组件
+     * */
+    public View getView(int position, View convertView, ViewGroup parent){
+
+        ViewHolder holder = null;
+
+        if (null == convertView){
+            convertView = LayoutInflater.from(mcontext).inflate(R.layout.list_item, parent, false);
+            holder = new ViewHolder();
+            holder.img_hero = (ImageView) convertView.findViewById(R.id.img_head);
+            holder.txt_name = (TextView) convertView.findViewById(R.id.list_name);
+            holder.txt_speak = (TextView) convertView.findViewById(R.id.list_msg);
+
+            convertView.setTag(holder);
+        }
+        else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.img_hero.setBackgroundResource(mHeroLst.get(position).getIcon());
+        holder.txt_name.setText(mHeroLst.get(position).getName());
+        holder.txt_speak.setText(mHeroLst.get(position).getSpeak());
 
         return convertView;
+    }
+
+    static class ViewHolder{
+        ImageView img_hero;
+        TextView txt_name;
+        TextView txt_speak;
     }
 }
