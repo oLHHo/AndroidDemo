@@ -1,16 +1,22 @@
 package com.example.lhh.adapterdemo;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private String[] names = new String[]{"暗影萨满", "撼地神牛", "众神之王",
                                             "极寒幽魂", "风暴之灵", "恶魔巫师",
@@ -62,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private HeroAdapter mHeroAdapter = null;
     private ListView mLstView;
+    private Button mAddBtn;
+    private Button mInsertBtn;
+    private Button mDelOBtn;
+    private Button mDelPBtn;
+
+    private int iFlag = 1;
+    private int iCol = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,14 +120,105 @@ public class MainActivity extends AppCompatActivity {
         mLstView = (ListView) findViewById(R.id.list_dota);
         mLstHero = new LinkedList<Hero>();
 
-        for (int iIndex = 0; iIndex < LstName.size(); ++iIndex){
+        for (int iIndex = 0; iIndex < LstName.size(); ++iIndex) {
             mLstHero.add(new Hero(LstName.get(iIndex), LstMsg.get(iIndex), LstIcon.get(iIndex)));
         }
 
         mHeroAdapter = new HeroAdapter((LinkedList<Hero>) mLstHero, mContext);
         mLstView.setAdapter(mHeroAdapter);
+        mLstView.setOnItemClickListener(this);
         // [3]
 
+
+        // 添加按钮
+        mAddBtn = (Button) findViewById(R.id.add_btn);
+        // 插入按钮
+        mInsertBtn = (Button) findViewById(R.id.insert_btn);
+        // 删除按钮（对象）
+        mDelOBtn = (Button) findViewById(R.id.delO_btn);
+        // 删除按钮（位置）
+        mDelPBtn = (Button) findViewById(R.id.delP_btn);
+
+        mAddBtn.setOnClickListener(this);
+        mInsertBtn.setOnClickListener(this);
+        mDelOBtn.setOnClickListener(this);
+        mDelPBtn.setOnClickListener(this);
+
+    }
+
+    /**
+     * @author by lhh
+     * @brief 按钮点击事件
+     * @param v
+     * return void
+     * */
+    public void onClick(View v){
+        switch (v.getId()){
+            // 添加
+            case R.id.add_btn:
+                String strAddName = "魔兽Dota";
+                mHeroAdapter.AddRow(new Hero(strAddName, "Don't Worry, Be Happy! 第" + iFlag + "个", R.mipmap.sjcp));
+                LstName.add(strAddName + "第" + iFlag + "个");
+                ++iFlag;
+
+                int iSize = mLstView.getCount();
+                Toast.makeText(mContext, "第"+iSize+"行添加：" + LstName.get(iSize - 1), Toast.LENGTH_SHORT).show();
+                break;
+
+            // 插入（第四行）
+            case R.id.insert_btn:
+                String strInsertNew = "Battery";
+                mHeroAdapter.InsertRow(iCol, new Hero(strInsertNew, "Be Happy 第" + iFlag + "个", R.mipmap.hdcp));
+                LstName.add(iCol, strInsertNew + "第" + iFlag + "个");
+                ++iFlag;
+                int iRow = iCol+1;
+                Toast.makeText(mContext,"第"+iRow+"行插入：" + LstName.get(iCol), Toast.LENGTH_SHORT).show();
+                break;
+
+            // 根据对象删除
+            case R.id.delO_btn:
+                int iDRow = iCol+1;
+                if (iCol < mLstView.getCount()){
+                    mHeroAdapter.DelRowByObject(mLstHero.get(iCol));
+                    Toast.makeText(mContext, "删除第"+iDRow+"行："+LstName.get(iCol), Toast.LENGTH_SHORT).show();
+                    LstName.remove(iCol);
+
+                    if (1 < iFlag){
+                        --iFlag;
+                    }
+
+                }
+                break;
+
+            // 根据位置删除
+            case R.id.delP_btn:
+                int iDdRow = iCol+1;
+                if (iCol < mLstView.getCount()){
+                    mHeroAdapter.DelRowByPos(iCol);
+                    Toast.makeText(mContext, "删除第"+iDdRow+"行："+LstName.get(iCol), Toast.LENGTH_SHORT).show();
+                    LstName.remove(iCol);
+
+                    if (1 < iFlag){
+                        --iFlag;
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * @author by lhh
+     * @brief item点击事件
+     * @param adapterView, View, position, id
+     * return void
+     * */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(mContext,"嗨，你好！我是" + LstName.get(position), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext,"嗨，你好！我是" + position, Toast.LENGTH_SHORT).show();
     }
 
 }

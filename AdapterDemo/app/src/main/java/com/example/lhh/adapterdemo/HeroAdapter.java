@@ -82,4 +82,69 @@ public class HeroAdapter extends BaseAdapter {
         TextView txt_name;
         TextView txt_speak;
     }
+
+    /**
+     * @author by lhh
+     * @brief 在列表最后添加一条数据
+     * @param hero
+     * @return void
+     * */
+    public void AddRow(Hero hero){
+
+        if (null == mHeroLst){
+            mHeroLst = new LinkedList<>();
+        }
+
+        mHeroLst.add(hero);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @author by lhh
+     * @brief 在指定位置添加一条数据
+     * @param hero
+     * @return void
+     * */
+    public void InsertRow(int position, Hero hero){
+
+        if (null == mHeroLst){
+            mHeroLst = new LinkedList<>();
+        }
+
+        mHeroLst.add(position, hero);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @author by lhh
+     * @brief 按对象删除某一条数据
+     * @param hero
+     * @return void
+     * */
+    public void DelRowByObject(Hero hero){
+
+        if (null != mHeroLst){
+            mHeroLst.remove(hero);
+        }
+
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @author by lhh
+     * @brief 按对象删除某一条数据
+     * @param position
+     * @return void
+     * */
+    public void DelRowByPos(int position){
+
+        if (null != mHeroLst){
+            mHeroLst.remove(position);
+        }
+
+        notifyDataSetChanged();
+    }
+
+
+
 }

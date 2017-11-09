@@ -36,11 +36,41 @@
             android:textSize="17sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/msg_prompt" >
+
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加一条记录" />
+        <Button
+            android:id="@+id/insert_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="插入一条记录" />
+
+        <Button
+            android:id="@+id/delO_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按对象删除" />
+        <Button
+            android:id="@+id/delP_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按位置删除" />
+
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/list_dota"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:stackFromBottom ="true"
-        android:layout_below="@+id/msg_prompt"/>
+        android:stackFromBottom ="false"
+        android:layout_below="@+id/btn_layout" />
 </RelativeLayout>

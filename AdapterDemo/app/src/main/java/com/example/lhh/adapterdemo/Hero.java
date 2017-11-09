@@ -27,12 +27,6 @@ public class Hero {
         this.iIcon = iIcon;
     }
 
-//    public Hero(List<String> LstName, List<String> LstSpeak, List<Integer> LstIcon){
-//        this.mLstName = LstName;
-//        this.mLstSpeak = LstSpeak;
-//        this.mLstIcon = LstIcon;
-//    }
-
     public void setName(String strName){
         this.strName = strName;
     }
