@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     private int[] list_item_id = new int[]{R.id.img_head, R.id.list_name, R.id.list_msg};
 
 
-    private List<Hero> mLstHero = null;
+    private LinkedList<Hero> mLstHero = null;
     private Context mContext;
     private HeroAdapter mHeroAdapter = null;
     private ListView mLstView;
@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity
                 String strAddName = "魔兽Dota";
                 mHeroAdapter.AddRow(new Hero(strAddName, "Don't Worry, Be Happy! 第" + iFlag + "个", R.mipmap.sjcp));
                 LstName.add(strAddName + "第" + iFlag + "个");
+                mHeroAdapter.refresh(mLstHero);
+                //mHeroAdapter.clear();
                 ++iFlag;
 
                 int iSize = mLstView.getCount();
@@ -170,6 +172,8 @@ public class MainActivity extends AppCompatActivity
                 String strInsertNew = "Battery";
                 mHeroAdapter.InsertRow(iCol, new Hero(strInsertNew, "Be Happy 第" + iFlag + "个", R.mipmap.hdcp));
                 LstName.add(iCol, strInsertNew + "第" + iFlag + "个");
+                mHeroAdapter.refresh(mLstHero);
+                //mHeroAdapter.clear();
                 ++iFlag;
                 int iRow = iCol+1;
                 Toast.makeText(mContext,"第"+iRow+"行插入：" + LstName.get(iCol), Toast.LENGTH_SHORT).show();
@@ -180,6 +184,8 @@ public class MainActivity extends AppCompatActivity
                 int iDRow = iCol+1;
                 if (iCol < mLstView.getCount()){
                     mHeroAdapter.DelRowByObject(mLstHero.get(iCol));
+                    mHeroAdapter.refresh(mLstHero);
+                    //mHeroAdapter.clear();
                     Toast.makeText(mContext, "删除第"+iDRow+"行："+LstName.get(iCol), Toast.LENGTH_SHORT).show();
                     LstName.remove(iCol);
 
@@ -195,6 +201,8 @@ public class MainActivity extends AppCompatActivity
                 int iDdRow = iCol+1;
                 if (iCol < mLstView.getCount()){
                     mHeroAdapter.DelRowByPos(iCol);
+                    mHeroAdapter.refresh(mLstHero);
+                    //mHeroAdapter.clear();
                     Toast.makeText(mContext, "删除第"+iDdRow+"行："+LstName.get(iCol), Toast.LENGTH_SHORT).show();
                     LstName.remove(iCol);
 

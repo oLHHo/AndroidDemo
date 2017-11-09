@@ -83,6 +83,8 @@ public class HeroAdapter extends BaseAdapter {
         TextView txt_speak;
     }
 
+
+
     /**
      * @author by lhh
      * @brief 在列表最后添加一条数据
@@ -146,5 +148,26 @@ public class HeroAdapter extends BaseAdapter {
     }
 
 
+    /**
+     * @author by lhh
+     * @brief 刷新数据
+     * @param refresh
+     * @return void
+     * */
+    public void refresh(LinkedList<Hero> heroLst) {
+        mHeroLst = heroLst;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @author by lhh
+     * @brief 清空数据
+     * @param clear
+     * @return void
+     * */
+    public void clear() {
+        mHeroLst.clear();
+        notifyDataSetChanged();
+    }
 
 }
